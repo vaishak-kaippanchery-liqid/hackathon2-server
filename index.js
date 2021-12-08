@@ -16,23 +16,8 @@ app.listen(
     }
 )
 
-app.post(
-    "/savedata/",
-    (req, res) => saveData(req.body, (err, data) => {
-        res.send(data);
-    })
-)
-app.get(
-    "/getdata/",
-    (req, res) => getData(req.query, (err, data) => {
-        res.send(data);
-    })
-)
+app.post("/savedata/", saveData);
+app.get("/getdata/", getData);
 
 //end point to fetch popular movies.
-app.get(
-    "/popular/",
-    (req, res) => getPopularMovies(req.query, (err, data) => {
-        res.send(data);
-    })
-)
+app.get("/popular/", getPopularMovies);
