@@ -1,0 +1,31 @@
+{
+  "name": "hackathon2-server",
+  "version": "1.0.0",
+  "description": "Node server to handle the backend connection to firebase for hackathon2 project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaishak-kaippanchery-liqid/hackathon2-server.git"
+  },
+  "keywords": [
+    "node",
+    "hackathon",
+    "firebase"
+  ],
+  "author": "Vaishak, Meg, Salma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vaishak-kaippanchery-liqid/hackathon2-server/issues"
+  },
+  "homepage": "https://github.com/vaishak-kaippanchery-liqid/hackathon2-server#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
