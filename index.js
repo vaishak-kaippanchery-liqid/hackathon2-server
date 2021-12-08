@@ -1,5 +1,6 @@
 const express = require("express");
 const {saveData, getData} = require("./firebase/dataHandler.js");
+const {getPopularMovies} = require("./tmdb/dataFetcher.js");
 
 const app = express();
 const PORT = 3000;
@@ -24,6 +25,14 @@ app.post(
 app.get(
     "/getdata/",
     (req, res) => getData(req.query, (err, data) => {
+        res.send(data);
+    })
+)
+
+//end point to fetch popular movies.
+app.get(
+    "/popular/",
+    (req, res) => getPopularMovies(req.query, (err, data) => {
         res.send(data);
     })
 )

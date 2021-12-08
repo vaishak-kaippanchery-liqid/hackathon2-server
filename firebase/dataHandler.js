@@ -23,6 +23,7 @@ module.exports = {
             }
           }).catch((error) => {
             console.error(error);
+            callback("Error in fetching data");
           });
     }
 }
