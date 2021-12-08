@@ -1,5 +1,5 @@
 const express = require("express");
-const {saveData} = require("./firebase/setData.js");
+const {saveData, getData} = require("./firebase/dataHandler.js");
 
 const app = express();
 const PORT = 3000;
@@ -18,6 +18,12 @@ app.listen(
 app.post(
     "/savedata/",
     (req, res) => saveData(req.body, (err, data) => {
+        res.send(data);
+    })
+)
+app.get(
+    "/getdata/",
+    (req, res) => getData(req.query, (err, data) => {
         res.send(data);
     })
 )
