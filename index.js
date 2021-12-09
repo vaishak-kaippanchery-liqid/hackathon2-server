@@ -1,5 +1,9 @@
 const express = require("express");
-const { addToWatchlist, getWatchlist } = require("./firebase/dataHandler.js");
+const {
+  addToWatchlist,
+  getWatchlist,
+  deleteMovieFromWatchlist,
+} = require("./firebase/dataHandler.js");
 const { getPopularMovies } = require("./tmdb/dataFetcher.js");
 
 const app = express();
@@ -14,6 +18,7 @@ app.listen(PORT, (err, _) => {
 //Firebase operations
 app.post("/watchlist/:username", addToWatchlist);
 app.get("/watchlist/:username", getWatchlist);
+app.delete("/watchlist/:username/:movie_id", deleteMovieFromWatchlist);
 
 //end point to fetch popular movies.
 app.get("/popular-movies/", getPopularMovies);

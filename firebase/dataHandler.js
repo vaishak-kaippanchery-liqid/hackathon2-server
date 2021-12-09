@@ -1,5 +1,12 @@
 const app = require("./connection.js");
-const { getDatabase, ref, child, set, get } = require("firebase/database");
+const {
+  getDatabase,
+  ref,
+  child,
+  set,
+  get,
+  remove,
+} = require("firebase/database");
 const database = getDatabase(app);
 const dbRef = ref(database);
 
@@ -51,7 +58,40 @@ const getWatchlist = (request, response) => {
     });
 };
 
+const deleteMovieFromWatchlist = (request, response) => {
+  let responseData = null;
+
+  get(child(dbRef, `${request.url}`))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        responseData = {
+          statuscode: 200,
+          message: `Record successfully deleted!`,
+        };
+
+        remove(child(dbRef, `${request.url}`));
+      } else {
+        responseData = {
+          statuscode: 404,
+          message: `Record does not exist.`,
+        };
+      }
+
+      response.send(responseData);
+    })
+    .catch((error) => {
+      console.error(error);
+      responseData = {
+        statuscode: 500,
+        message: "Internal server error - Not able to fetch the user data",
+      };
+
+      response.send(responseData);
+    });
+};
+
 module.exports = {
   addToWatchlist,
   getWatchlist,
+  deleteMovieFromWatchlist,
 };
