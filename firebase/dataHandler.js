@@ -3,18 +3,14 @@ const { getDatabase, ref, child, set, get } = require("firebase/database");
 const database = getDatabase(app);
 const dbRef = ref(database);
 
-const saveData = (request, response) => {
+const addToWatchlist = (request, response) => {
+  console.log("pathname: ", request.url);
+  set(ref(database, request.url), request.body);
 
-  const {username, email}  = request.body;
-  set(ref(database, "users/" + username), {
-    name: username,
-    email: email,
-  });
-  
   responseData = {
-    statuscode: 200, 
-    message: "User Data Inserted Successfully"
-  }
+    statuscode: 200,
+    message: "Movie added to watchlist successfully!",
+  };
 
   response.send(responseData);
 };
@@ -23,17 +19,15 @@ const getData = (request, response) => {
   const username = request.query.username;
   let responseData = null;
 
-  get(child(dbRef, `users/${username}`))
+  get(child(dbRef, `watchlist/${username}`))
     .then((snapshot) => {
       if (snapshot.exists()) {
-        const userdata = snapshot.val();
-        responseData =  {
+        responseData = {
           statuscode: 200,
-          message: `User ${username} found Successfully with email : ${userdata.email}`,
+          message: `User ${username} found successfully!`,
         };
-
       } else {
-        responseData =  {
+        responseData = {
           statuscode: 404,
           message: `User ${username} does not exist.`,
         };
@@ -44,15 +38,15 @@ const getData = (request, response) => {
     .catch((error) => {
       console.error(error);
       responseData = {
-          statuscode: 500,
-          message: "Internal server error - Not able to fetch the user data"
-      }
+        statuscode: 500,
+        message: "Internal server error - Not able to fetch the user data",
+      };
 
       response.send(responseData);
     });
 };
 
 module.exports = {
-  saveData,
+  addToWatchlist,
   getData,
 };
