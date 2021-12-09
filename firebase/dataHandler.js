@@ -4,8 +4,13 @@ const database = getDatabase(app);
 const dbRef = ref(database);
 
 const addToWatchlist = (request, response) => {
-  console.log("pathname: ", request.url);
-  set(ref(database, request.url), request.body);
+  const { id, title, poster_path, release_date } = request.body;
+
+  set(ref(database, `${request.url}/${id}`), {
+    title,
+    poster_path,
+    release_date,
+  });
 
   responseData = {
     statuscode: 200,
