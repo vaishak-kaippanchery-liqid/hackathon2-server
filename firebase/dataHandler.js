@@ -20,21 +20,21 @@ const addToWatchlist = (request, response) => {
   response.send(responseData);
 };
 
-const getData = (request, response) => {
-  const username = request.query.username;
+const getWatchlist = (request, response) => {
   let responseData = null;
-
-  get(child(dbRef, `watchlist/${username}`))
+  get(child(dbRef, `${request.url}`))
     .then((snapshot) => {
       if (snapshot.exists()) {
         responseData = {
           statuscode: 200,
-          message: `User ${username} found successfully!`,
+          message: `Record found successfully for ${request.params.username}!`,
+          data: snapshot.val(),
         };
       } else {
         responseData = {
           statuscode: 404,
-          message: `User ${username} does not exist.`,
+          message: `Record does not exist for ${request.params.username}.`,
+          data: [],
         };
       }
 
@@ -53,5 +53,5 @@ const getData = (request, response) => {
 
 module.exports = {
   addToWatchlist,
-  getData,
+  getWatchlist,
 };
