@@ -1,6 +1,6 @@
 const express = require("express");
 const {saveData, getData} = require("./firebase/dataHandler.js");
-const {getPopularMovies} = require("./tmdb/dataFetcher.js");
+const {fetchMovieDBConfig, getPopularMovies} = require("./tmdb/dataFetcher.js");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,8 +16,12 @@ app.listen(
     }
 )
 
+//Firebase operations
 app.post("/savedata/", saveData);
 app.get("/getdata/", getData);
 
+//Movie DB operations
+fetchMovieDBConfig(); //fetch and save the movie db image configurations.
+
 //end point to fetch popular movies.
-app.get("/popular/", getPopularMovies);
+app.get("/popular-movies/", getPopularMovies);
