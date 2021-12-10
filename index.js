@@ -1,11 +1,12 @@
+require("dotenv").config();
 const express = require("express");
 const {
   addToWatchlist,
   getWatchlist,
   deleteMovieFromWatchlist,
   searchUsers,
-} = require("./firebase/dataHandler.js");
-const { getPopularMovies, searchMovies } = require("./tmdb/dataFetcher.js");
+} = require("./firebase/controller.js");
+const { getPopularMovies, searchMovies } = require("./movies/controller.js");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,12 +17,12 @@ app.listen(PORT, (err, _) => {
   else console.log("connected");
 });
 
-//Firebase operations
+//Firebase routes
 app.post("/watchlist/:username", addToWatchlist);
 app.get("/watchlist/:username", getWatchlist);
 app.get("/search/users/", searchUsers);
 app.delete("/watchlist/:username/:movie_id", deleteMovieFromWatchlist);
 
-//end point to fetch popular movies.
+//Movies routes
 app.get("/popular-movies/", getPopularMovies);
 app.get("/search/movies/", searchMovies);
