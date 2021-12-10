@@ -15,7 +15,7 @@ const getPopularMovies = async (request, response) => {
       if (!popularMovieData.results) {
         responseData = {
           statuscode: 404,
-          message: "No popular movies were found",
+          message: "No popular movies were found in the database",
           data: [],
         };
       } else {
