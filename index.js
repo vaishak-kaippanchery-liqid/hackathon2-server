@@ -3,6 +3,7 @@ const {
   addToWatchlist,
   getWatchlist,
   deleteMovieFromWatchlist,
+  searchUsers,
 } = require("./firebase/dataHandler.js");
 const { getPopularMovies, searchMovies } = require("./tmdb/dataFetcher.js");
 
@@ -18,8 +19,9 @@ app.listen(PORT, (err, _) => {
 //Firebase operations
 app.post("/watchlist/:username", addToWatchlist);
 app.get("/watchlist/:username", getWatchlist);
-app.get("/search/movie", searchMovies);
+app.get("/search/users/", searchUsers);
 app.delete("/watchlist/:username/:movie_id", deleteMovieFromWatchlist);
 
 //end point to fetch popular movies.
 app.get("/popular-movies/", getPopularMovies);
+app.get("/search/movies/", searchMovies);
