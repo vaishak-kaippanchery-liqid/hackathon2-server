@@ -26,3 +26,5 @@ app.delete("/watchlist/:username/:movie_id", deleteMovieFromWatchlist);
 //Movies routes
 app.get("/popular-movies/", getPopularMovies);
 app.get("/search/movies/", searchMovies);
+
+//testing commit on master
